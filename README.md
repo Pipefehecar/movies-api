@@ -59,6 +59,11 @@ Puedes usar el archivo `api.http` con la extensión REST Client de tu editor par
 
 Accede a `localhost:8000/movie-weather?title={movie_title}` para obtener los datos combinados de película y clima.
 
+
+## 🧪Ejecutar Tests
+
+Para ejecutar los tests, utiliza el comando `pytest` en la terminal. Esto ejecutará todas las pruebas definidas en el directorio `tests`. Si deseas ejecutar pruebas específicas, proporciona la ruta al archivo de tests. Para un informe de cobertura de código, agrega la opción `--cov=src`. Asegúrate de haber instalado las dependencias de desarrollo con `pip install -r requirements-dev.txt`.
+
 ## 📚Estructura de Archivos
 
 - `src/main.py`: Punto de entrada de la aplicación.
