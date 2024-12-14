@@ -1,18 +1,16 @@
 from fastapi import APIRouter
-from src.services.providers import fetch_movie_data, fetch_weather_data
-from src.schemas.movie_weather import MovieWeather, Movie, WeatherData
+from src.schemas.movie_weather import MovieWeather
+from src.services.movies import get_movie_weather_data
+from fastapi import HTTPException
 
 router = APIRouter()
 
-
 @router.get("/movie-weather/", response_model=MovieWeather)
-def get_movie_weather(title: str) -> dict[str, str] | MovieWeather:  
+def get_movie_weather(title: str) -> MovieWeather:
     if not title:
-        return {"error": "Movie title is required"}
-    
-    movie_data: dict = fetch_movie_data(title)
-    if not movie_data:
-        return {"error": "Movie not found"}
+        raise HTTPException(status_code=400, detail="Movie title is required")
 
-    weather_data: dict = fetch_weather_data(movie_data["release_date"])
-    return MovieWeather(movie=Movie(**movie_data), weather=WeatherData(**weather_data))
+    try:
+        return get_movie_weather_data(title)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

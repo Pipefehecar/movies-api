@@ -27,9 +27,6 @@ def fetch_weather_data(date: str)-> dict:
         response = requests.get(
             f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&start={date}&end={date}"
         )
-        print(
-            f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&start={date}&end={date}"
-        )
         return response.json()
     except Exception as e:
         print(e)
